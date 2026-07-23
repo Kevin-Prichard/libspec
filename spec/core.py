@@ -189,3 +189,22 @@ class SourceInfoIntrospection(Feat):
     If introspection fails (e.g. for dynamically generated classes), the source
     element is omitted gracefully rather than raising an exception.
     """
+
+
+class CompositionSubspecDependencies(Feat):
+    """
+    Specification classes can express dependencies on subspecs via bare statement
+    composition within their class body.
+
+    Instead of attribute assignments (e.g., `dep = SubSpec`), dependencies are
+    declared directly as bare class references inside the class body:
+    ```python
+    class MyFeature(Feature):
+        SubSpecOne
+        SubSpecTwo
+    ```
+
+    The specification parser inspects class body statements to discover composed
+    subspec references, ensuring these composed dependencies are tracked in the
+    component graph, rendered XML elements, and diff analysis.
+    """
