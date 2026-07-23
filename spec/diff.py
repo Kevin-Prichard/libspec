@@ -118,3 +118,28 @@ class NativePatchParameterContract(Req):
     arguments or using an alias such as `new_snap` is not permitted, as it
     causes a TypeError at runtime and silently breaks the `-vv` diff path.
     """
+
+
+class DependencyTreeOrdering(Feat):
+    """
+    The diff engine calculates a topological dependency order across all components
+    by resolving inheritance (superspecs) and composition (subspecs).
+
+    `generate_native_patch` renders changed/new components according to this
+    dependency tree order (bottom-up / prerequisites-first). Components without
+    unmet dependencies are listed first, ensuring that foundational classes or helper
+    specs are presented before the higher-level components that rely on them.
+    """
+
+
+class ComponentImplementationOrder(Req):
+    """
+    When `libspec diff` prints each component block, it includes explicit, actionable
+    implementation instructions structured for AI coding agents.
+
+    The component block includes:
+    - Step index and topological dependency rank (e.g. `[Step 1/4 - Dependency Rank: 0]`).
+    - Explicit list of direct prerequisite specs that must be implemented first.
+    - Intra-component implementation sequence (e.g. 1. Base requirements/types, 2. Subspec dependencies, 3. Feature logic).
+    - Precise target file path and line hints derived from component source metadata.
+    """

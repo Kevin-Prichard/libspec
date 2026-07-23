@@ -155,3 +155,22 @@ def test_native_patch_parameter_contract():
 
     with pytest.raises(TypeError, match="unexpected keyword argument"):
         generate_native_patch(old_commit="HEAD~1", new_snap="HEAD")  # type: ignore[call-arg]
+
+
+def test_dependency_tree_ordering_and_implementation_instructions():
+    """Verify that DependencyTreeOrdering and ComponentImplementationOrder exist in compiled live specs."""
+    from libspec.util import compile_live_spec
+
+    comps, _ = compile_live_spec()
+    comp_map = {c.ref: c for c in comps}
+
+    assert "spec.diff.DependencyTreeOrdering" in comp_map
+    assert "spec.diff.ComponentImplementationOrder" in comp_map
+    assert (
+        "topological dependency order"
+        in comp_map["spec.diff.DependencyTreeOrdering"].docstring
+    )
+    assert (
+        "implementation instructions"
+        in comp_map["spec.diff.ComponentImplementationOrder"].docstring
+    )
