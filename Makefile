@@ -14,9 +14,13 @@ bump-minor:
 bump-patch:
 	$(PY) util/bump_version.py patch
 
-# .PHONY: build
-# build:
-# 	uv run python -c "from libspec.util import compile_live_spec; compile_live_spec()"
+.PHONY: build
+build:
+	uv build
+
+.PHONY: publish
+publish: build
+	uv publish
 
 .PHONY: spec
 spec: build

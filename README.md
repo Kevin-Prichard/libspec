@@ -2,8 +2,6 @@
 
 [![CI/CD](https://github.com/drhodes/libspec/actions/workflows/ci.yml/badge.svg)](https://github.com/drhodes/libspec/actions/workflows/ci.yml)
 [![Documentation](https://github.com/drhodes/libspec/actions/workflows/docs.yml/badge.svg)](https://drhodes.github.io/libspec/)
-[![PyPI version](https://img.shields.io/pypi/v/libspec.svg)](https://pypi.org/project/libspec/)
-[![Python versions](https://img.shields.io/pypi/pyversions/libspec.svg)](https://pypi.org/project/libspec/)
 [![License](https://img.shields.io/github/license/drhodes/libspec.svg)](https://github.com/drhodes/libspec/blob/main/LICENSE)
 
 > **an ounce of spec is worth a pound of tokens**
@@ -138,10 +136,10 @@ Jinja2 template string. More about that later...
 ## Inheritance
 
 Inheritance means "does this and more." The inherited superclass
-docstrings are normative, but the compiled XML preserves them as
-`<inherits><ref>...</ref></inherits>` references instead of prepending
-their prose into the child docstring. Renderers such as `libspec diff`
-can expand those refs when a review needs the inherited context.
+docstrings are normative, but compiled spec snapshots preserve them as
+references instead of prepending their prose into the child docstring.
+Renderers such as `libspec diff` can expand those refs when a review
+needs the inherited context.
 
 ## Mixins 
 
@@ -150,6 +148,6 @@ Mixins help get around the diamond problem. (TODO: write more about this)
 ## Versioning
 
 Note that the versioning of `libspec` is still being hammered
-out. Currently, the version of `libspec` appears in the generated XML
+out. Currently, the version of `libspec` appears in generated spec snapshots
 (`libspec-version` field). But, how diffs will be performed on
 different versions is unexplored.

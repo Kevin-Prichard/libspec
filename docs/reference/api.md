@@ -36,20 +36,15 @@ These models represent compiled specifications within snapshots.
 
 ---
 
-## SpecStore Backends
+## Specification Storage Models
 
-The transaction storage backend interfaces are used to read and write to the transaction logs.
+The models representing snapshots and implementation mappings.
 
-::: libspec.store.SpecStore
+::: libspec.common.Snapshot
     options:
       show_source: true
-      members:
-        - get_snapshot
-        - current_snapshot
-        - list_snapshots
-        - store_snapshot
-        - delete_snapshot
-        - restore_snapshot
-        - store_dependency
-        - list_dependencies
-        - compact
+
+::: libspec.common.Implemented
+    options:
+      show_source: true
+
