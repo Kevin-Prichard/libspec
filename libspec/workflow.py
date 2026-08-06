@@ -67,8 +67,9 @@ def get_agent_workflow(pfx: str = "libspec_") -> str:
     return f"""## Dev Workflow
 1. **Edit Spec**: Edit/define the requirements/features in the specification files. **Always decompose broad requirements into granular, single-responsibility requirement classes (e.g. `HelpCommandReq`, `SnapshotsCommandReq`) rather than using monolithic requirement blocks to ensure first-class specification footprinting.**{get_hook_lines("post-edit")}
 2. **Diff Spec (MANDATORY BEFORE CODING)**: You **must absolutely** run a spec diff using either the `{pfx}diff` MCP tool or the `uv run libspec diff` command to identify specification drift and review mutations/dependencies before coding begins.{get_hook_lines("pre-diff")}{get_hook_lines("post-diff")}
-3. **Test Driven Development**: Follow best practices in test driven development to write tests for the components.
-4. **Implement**: Implement the components to ensure the tests pass.{get_hook_lines("post-implement")}
-5. **Code Quality & Verification**: Run static analysis, linting, formatting, and dead code checks according to the project's guidelines.{get_hook_lines("pre-commit")}
-6. **Verify Specification Sync**: Run a spec diff using the `{pfx}diff` MCP tool or the `uv run libspec diff` command to ensure that the live specifications are fully synchronized with the final implementation and that all changes are accounted for.
-7. **Author a git message and present to user**"""
+3. **Sort Implementation Ordering**: Inspect component dependencies via the `{pfx}dependencies` tool or `uv run libspec dependencies` command to sort components into topological implementation order, ensuring foundational requirements are built before dependent features.{get_hook_lines("post-dependencies")}
+4. **Test Driven Development**: Follow best practices in test driven development to write tests for the components in topological dependency order.
+5. **Implement**: Implement the components to ensure the tests pass.{get_hook_lines("post-implement")}
+6. **Code Quality & Verification**: Run static analysis, linting, formatting, and dead code checks according to the project's guidelines.{get_hook_lines("pre-commit")}
+7. **Verify Specification Sync**: Run a spec diff using the `{pfx}diff` MCP tool or the `uv run libspec diff` command to ensure that the live specifications are fully synchronized with the final implementation and that all changes are accounted for.
+8. **Author a git message and present to user**"""

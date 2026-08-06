@@ -239,3 +239,12 @@ class WorkflowSpecSyncCheckReq(Req):
     to verify that the live specifications are fully synchronized with the
     final implementation prior to authoring the commit message.
     """
+
+
+class WorkflowComponentSortingReq(Req):
+    """
+    The recited `agent-workflow` checklist must include a step instructing the
+    developer/agent to inspect component dependencies (e.g. `uv run libspec dependencies`)
+    and sort components into topological implementation order before starting test-driven
+    development and coding.
+    """
