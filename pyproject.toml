@@ -19,7 +19,6 @@ dependencies = [
     "click>=8.1.8",
     "jinja2>=3.1.6",
     "mcp>=1.27.0",
-    "python-lsp-server>=1.12.2",
     "toml>=0.10.2",
     "skillkit>=0.4.0",
     "prompt-toolkit>=3.0.52",
@@ -36,9 +35,6 @@ Repository = "https://github.com/drhodes/libspec"
 [project.scripts]
 libspec = "libspec.cli:main"
 libspec-mcp = "libspec.mcp_server:main"
-
-[project.entry-points.pylsp]
-libspec = "libspec.pylsp_plugin"
 
 [build-system]
 requires = ["setuptools>=65.5.0", "wheel"]

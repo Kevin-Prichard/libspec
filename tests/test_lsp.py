@@ -1,28 +1,10 @@
 import json
 import os
 
-import pytest
-
-from libspec.mcp_server import lsp, peek, search, start_lsp, symbols
+from libspec.mcp_server import peek, search, symbols
 
 
-@pytest.fixture(scope="module", autouse=True)
-def setup_lsp():
-    """Start the LSP server for the duration of the module tests."""
-    root_dir = os.getcwd()
-    start_lsp(root_dir)
-    yield
-    if lsp:
-        lsp.stop()
-
-
-def test_lsp_start():
-    """Verify the LSP server starts and identifies the root."""
-    assert lsp.process is not None
-    assert lsp.read_thread.is_alive()
-
-
-def test_lsp_symbols_spec_py():
+def test_symbols_spec_py():
     """Verify we can list symbols in libspec/spec.py."""
     spec_py = os.path.abspath("libspec/spec.py")
     res_str = symbols(spec_py)
@@ -34,7 +16,7 @@ def test_lsp_symbols_spec_py():
     assert "Ctx" in names
 
 
-def test_lsp_peek_ctx():
+def test_peek_ctx():
     """Verify we can peek at the Ctx class definition."""
     spec_py = os.path.abspath("libspec/spec.py")
     # Find Ctx line
@@ -56,7 +38,7 @@ def test_lsp_peek_ctx():
     assert res.get("definition") is not None
 
 
-def test_lsp_search_mcp():
+def test_search_mcp():
     """Verify we can search for the McpServer class."""
     res_str = search("McpServer")
     res = json.loads(res_str)

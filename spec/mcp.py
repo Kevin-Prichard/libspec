@@ -84,31 +84,16 @@ class McpListDependenciesTool(Feat):
     """
 
 
-class LspTool(Feat):
-    """
-    Ensure the background LSP process is initialized before execution.
-    """
-
-
-class McpStartLspTool(LspTool):
-    """
-    The `libspec_start_lsp` MCP tool launches a Language Server specialized for
-    specification-driven development.
-    """
-
-    feature_name = "McpStartLspTool"
-
-
-class McpSearchTool(LspTool):
+class McpSearchTool(Feat):
     """
     The `libspec_search` tool is the primary discovery tool for the agent. It
-    performs a workspace-wide semantic search for components by name.
+    performs a workspace-wide search for components by name.
     """
 
     feature_name = "McpSearchTool"
 
 
-class McpPeekTool(LspTool):
+class McpPeekTool(Feat):
     """
     The `libspec_peek` tool provides immediate context and location for a
     component at a specific position.
@@ -117,40 +102,22 @@ class McpPeekTool(LspTool):
     feature_name = "McpPeekTool"
 
 
-class McpUsageTool(LspTool):
+class McpUsageTool(Feat):
     """
-    The `libspec_usage` tool finds all semantic references to a component,
+    The `libspec_usage` tool finds references to a component,
     allowing the agent to understand how it is used.
     """
 
     feature_name = "McpUsageTool"
 
 
-class McpSymbolsTool(LspTool):
+class McpSymbolsTool(Feat):
     """
     The `libspec_symbols` tool provides a structural overview of a file's
     contents.
     """
 
     feature_name = "McpSymbolsTool"
-
-
-class McpPylspPluginTool(LspTool):
-    """
-    The `libspec_pylsp_plugin` tool allows enabling or disabling pylsp plugins
-    dynamically.
-    """
-
-    feature_name = "McpPylspPluginTool"
-
-
-class McpSetPylspSettingTool(LspTool):
-    """
-    The `libspec_set_pylsp_plugin_setting` tool allows dynamic tuning of plugin
-    parameters over LSP.
-    """
-
-    feature_name = "McpSetPylspSettingTool"
 
 
 class McpConfigTool(Feat):
