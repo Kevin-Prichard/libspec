@@ -74,7 +74,9 @@ Once connected, your coding agent gains access to the following tools:
 | `mcp_libspec_search` | Search specification components and docstrings by query string. |
 | `mcp_libspec_show_component` | View complete details (docstring, inheritance, claims) of a component. |
 | `mcp_libspec_list_components` | List all components recorded inside a target snapshot. |
-| `mcp_libspec_diff` | Diff the live (pending) specifications against historical snapshots. |
+| `mcp_libspec_diff` | Diff live (pending) specs against historical snapshots or base branches (`libspec diff main`). |
 | `mcp_libspec_list_snapshots` | List chronological snapshot history. |
 | `mcp_libspec_declare_dependency` | Establish a logical dependency between components. |
 | `mcp_libspec_list_dependencies` | View recorded component dependencies. |
+
+> **Tip:** When developing on a feature branch with intermediate commits, pass the base branch target (e.g. `libspec diff main`) to track the cumulative specification delta across all commits.

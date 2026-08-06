@@ -76,6 +76,7 @@ nav:
       - "Quickstart Tutorial": tutorials/quickstart.md
   - How-To Guides:
       - "Using the MCP Server": how-to/agents.md
+      - "Feature Branch Spec Diffing": how-to/diffs.md
       - "Dependency Tracking": how-to/dependencies.md
       - "REPL Specification Inspector": how-to/repl.md
   - Reference:

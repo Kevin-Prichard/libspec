@@ -151,3 +151,15 @@ Note that the versioning of `libspec` is still being hammered
 out. Currently, the version of `libspec` appears in generated spec snapshots
 (`libspec-version` field). But, how diffs will be performed on
 different versions is unexplored.
+
+## Feature Branch & Multi-Commit Spec Diffing
+
+When working on feature branches with intermediate commits, running `uv run libspec diff` right after a commit will report `No changes detected` because `HEAD` matches the live spec on disk.
+
+To track the cumulative specification delta across all intermediate commits on a feature branch, pass the base branch target:
+
+```bash
+uv run libspec diff main
+```
+
+This tracks all specification additions, requirement modifications, and docstring changes relative to `main` throughout multi-stage development workflows.
