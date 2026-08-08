@@ -5,6 +5,7 @@ Main spec.
 from libspec import Spec
 
 from . import (
+    agents,
     app,
     cli,
     code_quality,
@@ -12,7 +13,6 @@ from . import (
     commands,
     core,
     diff,
-    git_hooks,
     mcp,
     repl,
     store,
@@ -24,6 +24,7 @@ from . import (
 class MainSpec(Spec):
     def modules(self):
         return [
+            agents,
             app,
             core,
             cli,
@@ -34,7 +35,6 @@ class MainSpec(Spec):
             store,
             repl,
             colors,
-            git_hooks,
             code_quality,
             commands,
         ]

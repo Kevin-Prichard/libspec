@@ -57,3 +57,30 @@ def test_skill_drift_and_auto_heal(tmp_path):
     messages = check_and_heal_skills(str(tmp_path), auto_heal=True)
     assert any("Auto-healed" in m and "gemini" in m for m in messages)
     assert config.is_skill_up_to_date() is True
+
+
+def test_agents_config_discovery_and_healing(tmp_path):
+    from libspec.agent_config import check_and_heal_skills
+
+    res = list_supported_agents()
+    assert "agents" in res.lower()
+
+    agents_dir = tmp_path / ".agents"
+    agents_dir.mkdir(parents=True, exist_ok=True)
+
+    config = get_agent_config("agents", str(tmp_path))
+    assert config.is_active is True
+    assert config.is_skill_up_to_date() is False
+
+    messages = check_and_heal_skills(str(tmp_path), auto_heal=True)
+    assert any("Auto-healed" in m and "agents" in m for m in messages)
+    assert config.is_skill_up_to_date() is True
+
+    skill_file = agents_dir / "skills" / "libspec" / "SKILL.md"
+    assert skill_file.exists()
+
+    # Verify custom opt-out directive disables auto-heal
+    with open(skill_file, "w") as f:
+        f.write("# libspec: disable-auto-heal\nCustom skill content")
+
+    assert config.is_skill_up_to_date() is True

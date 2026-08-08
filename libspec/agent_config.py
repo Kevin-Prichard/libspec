@@ -91,7 +91,7 @@ class AgentConfig(abc.ABC):
         spec.mcp.AgentSkillInstallation
         """
         filename = "SKILL.md"
-        temp_file = os.path.join(dir_path, f"TEMP_{filename}")
+        temp_file = os.path.join(dir_path, f"TEMP_{os.getpid()}_{filename}")
         os.makedirs(dir_path, exist_ok=True)
 
         try:
@@ -141,7 +141,7 @@ class AgentConfig(abc.ABC):
                 json.dump(config, f, indent=2)
         except Exception as e:
             raise RuntimeError(
-                f"Config Persistence Failure: Could not write updated configuration to {path}. {e}"
+                f"Config Persistence Failure: Could not write updated JSON configuration to {path}. {e}"
             )
 
     def _load_toml_config(self, path: str) -> dict:
@@ -169,6 +169,7 @@ class AgentConfig(abc.ABC):
     @property
     def skill_dir_path(self) -> str:
         # spec.mcp.AgentSkillDriftDetection
+        # spec.agents.AgentsDirectoryLayoutReq
         if self.agent_id == "antigravity":
             return os.path.join(
                 self.project_root, ".gemini", "antigravity", "skills", "libspec"
@@ -183,11 +184,20 @@ class AgentConfig(abc.ABC):
             return os.path.join(self.project_root, ".github", "skills", "libspec")
         elif self.agent_id == "codex":
             return os.path.join(self.project_root, ".codex", "skills", "libspec")
+        elif self.agent_id == "agents":
+            primary = os.path.join(self.project_root, ".agents", "skills", "libspec")
+            legacy = os.path.join(
+                self.project_root, ".agents", "skills", "libspec-agent-workflow"
+            )
+            if not os.path.exists(primary) and os.path.exists(legacy):
+                return legacy
+            return primary
         raise ValueError(f"Unknown agent ID: {self.agent_id}")
 
     @property
     def is_active(self) -> bool:
         # spec.mcp.AgentSkillDriftDetection
+        # spec.agents.AgentsDirectoryLayoutReq
         if self.agent_id == "antigravity":
             return os.path.exists(
                 os.path.join(
@@ -212,18 +222,26 @@ class AgentConfig(abc.ABC):
             return os.path.exists(
                 os.path.join(self.project_root, ".codex", "config.toml")
             )
+        elif self.agent_id == "agents":
+            agents_path = os.path.join(self.project_root, ".agents")
+            return os.path.exists(agents_path) and os.path.isdir(agents_path)
         return False
 
     def is_skill_up_to_date(self) -> bool:
         # spec.mcp.SkillVersionValidation
+        # spec.agents.AgentsSkillDriftDetectionReq
         skill_path = os.path.join(self.skill_dir_path, "SKILL.md")
-        if not os.path.exists(skill_path):
+        if not os.path.exists(skill_path) or not os.path.isfile(skill_path):
             return False
         try:
-            current_content = self._render_skill()
             with open(skill_path, encoding="utf-8") as f:
                 installed_content = f.read()
-            return current_content == installed_content
+
+            if "libspec: disable-auto-heal" in installed_content:
+                return True
+
+            current_content = self._render_skill()
+            return current_content.strip() == installed_content.strip()
         except Exception:
             return False
 
@@ -478,6 +496,30 @@ class CodexConfig(AgentConfig):
     agent_id = "codex"
     agent_display_name = "Codex"
     agent_description = "Navigation and specification tools for Codex"
+
+
+class AgentsConfig(AgentConfig):
+    """
+    Handles configuration for workspace .agents skills and setup.
+    # spec.agents.AgentsDirectoryLayoutReq
+    # spec.agents.AgentsSkillValidationReq
+    # spec.agents.AgentsSkillHealingFeat
+    """
+
+    def configure(self) -> str:
+        config_dir = os.path.join(self.project_root, ".agents")
+        if os.path.exists(config_dir) and not os.path.isdir(config_dir):
+            raise ValueError(
+                f"Path Conflict: {config_dir} exists as a file instead of a directory."
+            )
+        os.makedirs(config_dir, exist_ok=True)
+        skill_dir = self.skill_dir_path
+        self._install_skill(skill_dir, self._render_skill())
+        return f"Successfully configured .agents skill in {skill_dir}."
+
+    agent_id = "agents"
+    agent_display_name = "Agents"
+    agent_description = "Navigation and specification tools for workspace .agents"
 
 
 def list_supported_agents() -> str:
