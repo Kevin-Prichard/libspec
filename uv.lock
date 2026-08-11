@@ -8,12 +8,6 @@ resolution-markers = [
     "python_full_version < '3.13'",
 ]
 
-[manifest]
-members = [
-    "libspec",
-    "libspec-scheduler",
-]
-
 [[package]]
 name = "aiofiles"
 version = "25.1.0"
@@ -739,17 +733,6 @@ dev = [
     { name = "radon", specifier = ">=6.0.1" },
     { name = "ruff", specifier = ">=0.15.12" },
 ]
-
-[[package]]
-name = "libspec-scheduler"
-version = "0.1.0"
-source = { editable = "libspec-scheduler" }
-dependencies = [
-    { name = "libspec" },
-]
-
-[package.metadata]
-requires-dist = [{ name = "libspec", editable = "." }]
 
 [[package]]
 name = "linkify-it-py"

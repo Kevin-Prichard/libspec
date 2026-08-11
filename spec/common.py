@@ -1,5 +1,5 @@
 """
-Common types and schemas shared between the specification compiler, SpecStore, and scheduler.
+Common types and schemas shared between the specification compiler and SpecStore.
 """
 
 from .err import Req

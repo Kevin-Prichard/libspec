@@ -409,12 +409,6 @@ def agent_workflow(agent: str = None, prefix: str = None) -> str:
     return get_agent_workflow(pfx)
 
 
-try:
-    import libspec_scheduler.mcp
-except ImportError:
-    pass
-
-
 def main():
     try:
         from libspec.agent_config import check_and_heal_skills
