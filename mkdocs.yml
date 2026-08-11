@@ -75,6 +75,8 @@ nav:
   - Tutorials:
       - "Quickstart Tutorial": tutorials/quickstart.md
   - How-To Guides:
+      - "Installation & Setup": how-to/install.md
+      - "Developer Agent Workflow": how-to/agent-workflow.md
       - "Using the MCP Server": how-to/agents.md
       - "Feature Branch Spec Diffing": how-to/diffs.md
       - "Dependency Tracking": how-to/dependencies.md
@@ -86,3 +88,4 @@ nav:
   - Explanation:
       - "Object Specification Mapping": explanation/osm.md
       - "Store Architecture": explanation/architecture.md
+      - "Diátaxis Framework Principles": explanation/diataxis.md

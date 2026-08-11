@@ -86,4 +86,12 @@ push-release:
 	git tag -a "v$(VERSION)" -m "Release v$(VERSION)"
 	git push origin "v$(VERSION)"
 
+.PHONY: docs-build
+docs-build:
+	uv run mkdocs build
+
+.PHONY: docs-publish
+docs-publish:
+	uv run mkdocs gh-deploy --force
+
 

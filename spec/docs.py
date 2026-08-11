@@ -42,6 +42,14 @@ class TutorialPedagogyReq(Req):
     """
 
 
+class QuickstartTutorialReq(Req):
+    """
+    `docs/tutorials/quickstart.md` must provide a step-by-step hands-on tutorial:
+    - Guides a new user from installing libspec to writing their first specification class (`spec/my_spec.py`).
+    - Instructs user on running `libspec build`, inspecting `libspec diff`, and interfacing with an LLM agent via MCP.
+    """
+
+
 class HowToGuidesQuadrant(Feat):
     """
     How-To Guides are goal-oriented directions designed for already-competent users at work.
@@ -60,6 +68,22 @@ class HowToGuideExecutionReq(Req):
     - Start and end at logical boundaries: Avoid end-to-end tutorial handholding.
     - Omit the unnecessary: Exclude basic operational knowledge and deep conceptual theory.
     - Focus on human projects: Frame instructions around human goals rather than tool mechanics.
+    """
+
+
+class InstallationGuideReq(Req):
+    """
+    `docs/how-to/install.md` must provide concise installation and setup directions:
+    - Details package installation via `uv add libspec` (or `pip install libspec`).
+    - Instructs user on initializing project configuration via `libspec init`.
+    """
+
+
+class AgentWorkflowGuideReq(Req):
+    """
+    `docs/how-to/agent-workflow.md` must detail the 8-step developer agent loop:
+    - Documents `uv run libspec agent-workflow` execution across agent platforms.
+    - Outlines step-by-step guidelines from spec editing to spec diffing, TDD, implementation, and code quality verification.
     """
 
 
@@ -84,6 +108,24 @@ class ReferenceNeutralityReq(Req):
     """
 
 
+class CliReferenceReq(Req):
+    """
+    `docs/reference/cli.md` must document all CLI subcommands, flags, and return codes accurately.
+    """
+
+
+class McpReferenceReq(Req):
+    """
+    `docs/reference/mcp.md` must document all FastMCP tools and resource URIs exposed by the libspec MCP server.
+    """
+
+
+class ApiReferenceReq(Req):
+    """
+    `docs/reference/api.md` must document the core Python API classes (`Spec`, `Feature`, `Requirement`, `Ctx`, `SpecStore`).
+    """
+
+
 class ExplanationQuadrant(Feat):
     """
     Explanation guides provide understanding-oriented background, context, and architectural discussion.
@@ -102,6 +144,18 @@ class ExplanationScopeReq(Req):
     - Focus on a single conceptual topic (e.g., `About Store Architecture`).
     - Do not embed procedural step-by-step instructions or raw API reference dumps.
     - Provide rich background context to deepen the practitioner's mental model.
+    """
+
+
+class OsmExplanationReq(Req):
+    """
+    `docs/explanation/osm.md` must explain Object Specification Mapping (OSM) concepts and design rationale.
+    """
+
+
+class ArchitectureExplanationReq(Req):
+    """
+    `docs/explanation/architecture.md` must explain SpecStore transaction log architecture and SHA-256 content hashing.
     """
 
 
@@ -129,4 +183,18 @@ class DocumentationArchitectureReq(Req):
     - `explanation/`: Deep-dive architectural background and design rationale.
 
     Content must not blur boundaries or mix modes across these directories.
+    """
+
+
+class DocsPublishMakefileRule(Feat):
+    """
+    `Makefile` must contain `docs-publish` (and `docs-build`) targets:
+    - `docs-build`: Runs `uv run mkdocs build` to verify local site compilation.
+    - `docs-publish`: Runs `uv run mkdocs gh-deploy --force` to deploy compiled documentation to GitHub Pages.
+    """
+
+
+class GhPagesPublishReq(Req):
+    """
+    Documentation site must be published directly to GitHub Pages (`gh-pages` branch) via `make docs-publish`.
     """
