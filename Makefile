@@ -16,6 +16,7 @@ bump-patch:
 
 .PHONY: build
 build:
+	rm -rf dist/ build/
 	uv build
 
 .PHONY: publish
