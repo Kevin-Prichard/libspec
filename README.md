@@ -1,5 +1,6 @@
 # libspec
 
+[![PyPI](https://img.shields.io/pypi/v/libspec.svg)](https://pypi.org/project/libspec/)
 [![CI/CD](https://github.com/drhodes/libspec/actions/workflows/ci.yml/badge.svg)](https://github.com/drhodes/libspec/actions/workflows/ci.yml)
 [![Documentation](https://github.com/drhodes/libspec/actions/workflows/docs.yml/badge.svg)](https://drhodes.github.io/libspec/)
 [![License](https://img.shields.io/github/license/drhodes/libspec.svg)](https://github.com/drhodes/libspec/blob/main/LICENSE)
