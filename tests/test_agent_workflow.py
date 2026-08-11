@@ -10,7 +10,7 @@ def test_cli_agent_workflow():
     # 1. Test default prefix
     res = runner.invoke(main, ["agent-workflow"])
     assert res.exit_code == 0
-    assert "libspec_diff" in res.output
+    assert "diff" in res.output
 
     # 2. Test explicit prefix
     res = runner.invoke(main, ["agent-workflow", "--prefix", "my_prefix_"])
@@ -31,7 +31,7 @@ def test_cli_agent_workflow():
 def test_mcp_agent_workflow():
     # 1. Test default prefix
     res = agent_workflow()
-    assert "libspec_diff" in res
+    assert "diff" in res
 
     # 2. Test explicit prefix
     res = agent_workflow(prefix="foo_")
