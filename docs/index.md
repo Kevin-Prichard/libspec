@@ -8,6 +8,38 @@ By diff'ing snapshots and providing a native **Model Context Protocol (MCP)** se
 
 ---
 
+## The big idea: generic specifications
+
+The deepest capability in `libspec` is **generic specifications** — base classes
+that encode *how features should be specified*, not what any particular feature
+does.
+
+```python
+from libspec import Feature
+from libspec.diataxis import Diataxis        # pip install libspec-diataxis
+from libspec.conventioncommits import Commit # pip install libspec-conventioncommits
+
+# Inherit once. Every feature in your project automatically
+# carries both contracts — enforced at spec-generation time.
+class MyFeature(Feature, Diataxis, Commit): pass
+
+class AwesomeNavBar(MyFeature):
+    def tutorial(self):    return "In this tutorial we will build..."
+    def how_to(self):      return "To highlight the active route..."
+    def reference(self):   return "AwesomeNavBar(items, active_index, ...)"
+    def explanation(self): return "The nav bar uses a slot-based model because..."
+```
+
+Generic specs turn documentation standards from advisory suggestions into
+**structural guarantees**. Miss a quadrant and `UnimplementedMethodError` tells
+you exactly where, at spec-generation time. The contract travels through
+inheritance automatically — define it once at your base class, and every
+downstream feature complies.
+
+[Read the full explanation →](explanation/generic-specs.md)
+
+---
+
 ## The Workflow
 
 ```mermaid

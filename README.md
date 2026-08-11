@@ -7,18 +7,40 @@
 
 > **an ounce of spec is worth a pound of tokens**
 
+`libspec` is a **Specification Management System** in Python. Features and
+requirements are declared as Python classes; their docstrings are compiled into
+content-addressed snapshots, diff'd over time, and served to LLM coding agents
+via MCP.
 
-`libspec` is a **Specification Management System** in Python. Similar in spirit 
-to object-relation mapping (ORM), libspec uses an Object Specification Mapping 
-to compile logical requirements into structured database snapshots. Instead of 
-generating SQL, it tracks how requirements evolve over time.
+### The deepest capability: generic specifications
 
-By diff'ing snapshots and using a Model Context Protocol (MCP) server, it 
-provides a centralized context layer for local coding agents to trace specs directly 
-to generated code. The developer workflow is incremental and exploratory, less like 
-gambling and more like delegating.
+The most powerful thing `libspec` enables is **generic specifications** —
+published base classes that encode *how features should be documented and
+specified*, not what any particular feature does.
 
-![the general idea](./docs/workflow1.png)
+```python
+from libspec import Feature
+from libspec.diataxis import Diataxis        # pip install libspec-diataxis
+from libspec.conventioncommits import Commit # pip install libspec-conventioncommits
+
+# Inherit once at your project base class.
+class MyFeature(Feature, Diataxis, Commit): pass
+
+# Every downstream feature automatically carries both contracts —
+# enforced at spec-generation time, not as a style guide to forget.
+class AwesomeNavBar(MyFeature):
+    def tutorial(self):    return "In this tutorial we will build..."
+    def how_to(self):      return "To highlight the active route..."
+    def reference(self):   return "AwesomeNavBar(items, active_index, ...)"
+    def explanation(self): return "The nav bar uses a slot-based model because..."
+```
+
+Miss a quadrant and `UnimplementedMethodError` tells you exactly where.
+The contract propagates through inheritance automatically. See
+[Generic Specifications](https://drhodes.github.io/libspec/explanation/generic-specs/)
+for the full picture.
+
+---
 
 
 ### Example Spec
@@ -128,6 +150,59 @@ class Feat(Err, Refactor, Robustness, Feature):
 class Req(Err, Refactor, Robustness, Requirement):
     pass
 ```
+
+# Ecosystem: `libspec.*` Extension Libraries
+
+`libspec` is designed to be extended by independent, separately-published
+packages that contribute new modules to the `libspec.*` namespace.  A single
+line in `libspec/__init__.py` makes this possible:
+
+```python
+import pkgutil
+__path__ = pkgutil.extend_path(__path__, __name__)
+```
+
+This causes Python to search **every** `libspec/` directory on `sys.path`
+when resolving `libspec.*` imports, so any installed sibling library is
+discovered automatically — no coordination with the `libspec` maintainers
+required.
+
+### Example: mixing extensions
+
+```python
+from libspec import Feature
+from libspec.diataxis import Diataxis        # pip install libspec-diataxis
+from libspec.conventioncommits import Commit # pip install libspec-conventioncommits
+
+class MyBaseFeature(Feature, Diataxis, Commit): pass
+
+class AwesomeNavBar(MyBaseFeature):
+    ...
+```
+
+### Writing your own extension
+
+A sibling library needs only a single source file — no hooks, no `.pth`
+tricks:
+
+```
+libspec-myextension/
+└── src/
+    └── libspec/
+        └── myextension.py   ← your module, no __init__.py needed
+```
+
+```toml
+# pyproject.toml
+[tool.hatch.build.targets.wheel]
+packages = ["src/libspec"]
+```
+
+See the [full guide](https://drhodes.github.io/libspec/how-to/extend-namespace/)
+and [explanation](https://drhodes.github.io/libspec/explanation/namespace-extensions/)
+in the docs.
+
+---
 
 # The Object Model 
 
