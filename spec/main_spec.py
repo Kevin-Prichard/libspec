@@ -13,6 +13,7 @@ from . import (
     commands,
     core,
     diff,
+    docs,
     mcp,
     repl,
     store,
@@ -37,4 +38,5 @@ class MainSpec(Spec):
             colors,
             code_quality,
             commands,
+            docs,
         ]
