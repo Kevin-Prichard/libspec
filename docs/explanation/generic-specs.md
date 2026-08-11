@@ -112,7 +112,7 @@ specification contracts as makes sense for that project:
 ```python
 from libspec import Feature
 from libspec.diataxis import Diataxis
-from libspec.conventioncommits import Commit
+from libspec.conventional_commits import Commit
 
 class MyFeature(Feature, Diataxis, Commit): pass
 ```
@@ -135,7 +135,7 @@ requirements should share. Examples:
 | Library | What it enforces |
 |---------|-----------------|
 | `libspec-diataxis` | All four Diátaxis documentation quadrants |
-| `libspec-conventioncommits` | Conventional Commits–formatted change descriptions |
+| `libspec-conventional-commits` | Conventional Commits–formatted change descriptions |
 | `libspec-adr` | Architecture Decision Record fields (context, decision, consequences) |
 | `libspec-openapi` | OpenAPI-compatible endpoint contracts |
 | `libspec-a11y` | Accessibility requirements checklists |

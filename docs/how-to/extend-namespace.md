@@ -2,7 +2,7 @@
 
 This guide shows you how to create and publish an independent Python package
 that contributes a new module to the `libspec.*` namespace — for example
-`libspec.diataxis`, `libspec.conventioncommits`, or any other domain-specific
+`libspec.diataxis`, `libspec.conventional_commits`, or any other domain-specific
 extension.
 
 **Prerequisite**: `libspec>=10.5.2` installed in your project.

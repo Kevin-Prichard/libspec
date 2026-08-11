@@ -6,7 +6,7 @@ new modules under the `libspec.*` namespace — so users can write:
 ```python
 from libspec import Feature
 from libspec.diataxis import Diataxis
-from libspec.conventioncommits import Commit
+from libspec.conventional_commits import Commit
 
 class MyBaseFeature(Feature, Diataxis, Commit): pass
 ```
@@ -54,12 +54,12 @@ every `libspec/` directory across all installed packages:
 libspec.__path__ = [
     '.../site-packages/libspec',       # libspec itself
     '.../libspec-diataxis/src/libspec', # libspec-diataxis (editable)
-    '.../site-packages/libspec',        # libspec-conventioncommits, etc.
+    '.../site-packages/libspec',        # libspec-conventional-commits, etc.
 ]
 ```
 
 Python's import machinery then searches all of them in order, so
-`libspec.diataxis` and `libspec.conventioncommits` are discovered naturally.
+`libspec.diataxis` and `libspec.conventional_commits` are discovered naturally.
 
 ---
 

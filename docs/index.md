@@ -17,7 +17,7 @@ does.
 ```python
 from libspec import Feature
 from libspec.diataxis import Diataxis        # pip install libspec-diataxis
-from libspec.conventioncommits import Commit # pip install libspec-conventioncommits
+from libspec.conventional_commits import Commit # pip install libspec-conventional-commits
 
 # Inherit once. Every feature in your project automatically
 # carries both contracts — enforced at spec-generation time.

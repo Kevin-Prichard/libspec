@@ -21,7 +21,7 @@ specified*, not what any particular feature does.
 ```python
 from libspec import Feature
 from libspec.diataxis import Diataxis        # pip install libspec-diataxis
-from libspec.conventioncommits import Commit # pip install libspec-conventioncommits
+from libspec.conventional_commits import Commit # pip install libspec-conventional-commits
 
 # Inherit once at your project base class.
 class MyFeature(Feature, Diataxis, Commit): pass
@@ -172,7 +172,7 @@ required.
 ```python
 from libspec import Feature
 from libspec.diataxis import Diataxis        # pip install libspec-diataxis
-from libspec.conventioncommits import Commit # pip install libspec-conventioncommits
+from libspec.conventional_commits import Commit # pip install libspec-conventional-commits
 
 class MyBaseFeature(Feature, Diataxis, Commit): pass
 
