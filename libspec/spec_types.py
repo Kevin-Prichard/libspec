@@ -1,11 +1,12 @@
 from inspect import cleandoc, isfunction, signature
 
 from libspec.err import UnimplementedMethodError
-from libspec.spec import Ctx
+from libspec.spec import BaseSpec, Ctx
 from libspec.util import fqn
 
 
-class Feature(Ctx):
+class Feature(BaseSpec):
+
     """
     Feature Specification: {{feature_name}}
 

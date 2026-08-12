@@ -812,15 +812,94 @@ class Ctx:
             delta_elem.append(self._to_xml_element(name, value))
 
 
-# Return all Ctx-derived classes defined in a module.
+class BaseSpec(Ctx):
+    """
+    Base specification class for interfaces, mixins, and abstract specs.
+
+    Classes that set `__is_base_spec__ = True` or inherit from BaseSpec without
+    implementing concrete specification methods serve as template interfaces
+    for inheritance. They are excluded from standalone component listings and diffs.
+    """
+
+    __is_base_spec__ = True
+
+
+def is_base_spec(cls):
+    """
+    Return True if `cls` is an interface/abstract base spec that should not
+    be emitted as a standalone concrete component.
+    """
+    if not isinstance(cls, type) or not issubclass(cls, Ctx):
+        return True
+    if cls in (Ctx, BaseSpec):
+        return True
+
+    # If the class explicitly sets __is_base_spec__ = True directly in its dict
+    if cls.__dict__.get("__is_base_spec__", False):
+        return True
+
+    # Built-in spec base types in libspec.spec_types, libspec.diataxis, libspec.spec
+    if cls.__module__ in ("libspec.spec_types", "libspec.diataxis", "libspec.spec"):
+        if cls.__name__ in (
+            "Feature",
+            "Requirement",
+            "Constraint",
+            "DataSchema",
+            "Def",
+            "EdgeCase",
+            "API",
+            "LibraryAPI",
+            "CmdLine",
+            "Implementation",
+            "UserStory",
+            "SystemRequirement",
+            "Diataxis",
+            "BaseSpec",
+        ):
+            return True
+
+    # Check if evaluating template/ctx raises UnimplementedMethodError
+    try:
+        instance = cls()
+        instance.ctx()
+    except UnimplementedMethodError:
+        return True
+    except Exception:
+        pass
+
+    return False
+
+
+# Return all Ctx-derived classes defined in a module or package.
 def ctx_spec_classes_in_module(module):
     classes = []
-    for _, obj in inspect.getmembers(module, inspect.isclass):
-        if obj.__module__ != module.__name__:
-            continue
-        if issubclass(obj, Ctx) and obj is not Ctx:
-            classes.append(obj)
+    modules_to_inspect = [module]
+    if hasattr(module, "__path__"):
+        import importlib
+        import pkgutil
+
+        for _, modname, _ in pkgutil.walk_packages(
+            module.__path__, module.__name__ + "."
+        ):
+            try:
+                submod = importlib.import_module(modname)
+                modules_to_inspect.append(submod)
+            except Exception:
+                pass
+
+    for m in modules_to_inspect:
+        for _, obj in inspect.getmembers(m, inspect.isclass):
+            if obj.__module__ != m.__name__ and not obj.__module__.startswith(
+                module.__name__ + "."
+            ):
+                continue
+            if issubclass(obj, Ctx) and obj is not Ctx and not is_base_spec(obj):
+                if obj not in classes:
+                    classes.append(obj)
     return classes
+
+
+
 
 
 # Instantiate all specification classes found in a module.
