@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://drhodes.github.io/libspec/how-to/dependencies/">
+        <link rel="canonical" href="https://drhodes.github.io/libspec/how-to/agent-workflow/">
       
       
-        <link rel="prev" href="../diffs/">
+        <link rel="prev" href="../install/">
       
       
-        <link rel="next" href="../repl/">
+        <link rel="next" href="../agents/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Dependency Tracking - libspec</title>
+        <title>Developer Agent Workflow - libspec</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#declaring-and-managing-component-dependencies" class="md-skip">
+        <a href="#how-to-execute-the-developer-agent-workflow" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Dependency Tracking
+              Developer Agent Workflow
             
           </span>
         </div>
@@ -573,10 +573,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../agent-workflow/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Agent Workflow
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -592,6 +619,48 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running the Command
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-9-step-developer-agent-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 9-Step Developer Agent Loop
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -657,37 +726,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Dependency Tracking
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../dependencies/" class="md-nav__link">
         
   
   
@@ -703,93 +745,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-declaring-a-dependency" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Declaring a Dependency
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. Declaring a Dependency">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scoping-to-a-snapshot" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scoping to a Snapshot
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-listing-recorded-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Listing Recorded Dependencies
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Listing Recorded Dependencies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example Output
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-why-use-specification-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Why Use Specification Dependencies?
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1227,66 +1182,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-declaring-a-dependency" class="md-nav__link">
+  <a href="#running-the-command" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Declaring a Dependency
+        Running the Command
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="1. Declaring a Dependency">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scoping-to-a-snapshot" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scoping to a Snapshot
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-listing-recorded-dependencies" class="md-nav__link">
+  <a href="#the-9-step-developer-agent-loop" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Listing Recorded Dependencies
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Listing Recorded Dependencies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example Output
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-why-use-specification-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Why Use Specification Dependencies?
+        The 9-Step Developer Agent Loop
       
     </span>
   </a>
@@ -1313,43 +1223,31 @@
   
 
 
-<h1 id="declaring-and-managing-component-dependencies">Declaring and Managing Component Dependencies</h1>
-<p>Specifications are rarely isolated. Changes in a core security policy requirement can affect multiple feature implementations. To track this, <code>libspec</code> enables you to declare logical dependencies between specification components.</p>
-<p>These dependencies are recorded directly inside the SpecStore transaction log as logical links, keeping your Python source files clean and free of dependency wiring boilerplate.</p>
+<h1 id="how-to-execute-the-developer-agent-workflow">How to Execute the Developer Agent Workflow</h1>
+<p>The <code>agent-workflow</code> command outputs the standardized 8-step development loop for coding agents and developers working with <code>libspec</code>.</p>
 <hr />
-<h2 id="1-declaring-a-dependency">1. Declaring a Dependency</h2>
-<p>To declare that one specification component depends on another, use the <code>declare-dependency</code> command. By default, the command scopes the dependency to the <code>PENDING</code> (live) state:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># syntax: uv run libspec declare-dependency &lt;dependent_ref&gt; &lt;depends_on_ref&gt;</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>uv<span class="w"> </span>run<span class="w"> </span>libspec<span class="w"> </span>declare-dependency<span class="w"> </span>spec.app.App<span class="w"> </span>spec.err.Err
+<h2 id="running-the-command">Running the Command</h2>
+<p>Generate workflow instructions formatted for your active environment:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>libspec<span class="w"> </span>agent-workflow
 </span></code></pre></div>
-<h3 id="scoping-to-a-snapshot">Scoping to a Snapshot</h3>
-<p>You can also record dependencies against a specific historic snapshot by using the <code>-s</code> / <code>--snapshot</code> option:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Declare dependency scoped to snapshot d1b3a5f7</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>uv<span class="w"> </span>run<span class="w"> </span>libspec<span class="w"> </span>declare-dependency<span class="w"> </span>spec.app.App<span class="w"> </span>spec.err.Err<span class="w"> </span>-s<span class="w"> </span>d1b3a5f7
+<p>Optionally specify your agent platform (<code>antigravity</code>, <code>gemini</code>, or <code>claude</code>):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>libspec<span class="w"> </span>agent-workflow<span class="w"> </span>--agent<span class="w"> </span>antigravity
 </span></code></pre></div>
 <hr />
-<h2 id="2-listing-recorded-dependencies">2. Listing Recorded Dependencies</h2>
-<p>To view the dependency tree recorded for a given state, use the <code>dependencies</code> command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># View dependencies for the active PENDING state</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>uv<span class="w"> </span>run<span class="w"> </span>libspec<span class="w"> </span>dependencies
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># View dependencies recorded for a specific historical snapshot</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>uv<span class="w"> </span>run<span class="w"> </span>libspec<span class="w"> </span>dependencies<span class="w"> </span>-s<span class="w"> </span>d1b3a5f7
-</span></code></pre></div>
-<h3 id="example-output">Example Output</h3>
-<p>When dependencies are active, they print in an indented tree format:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Component Dependencies for &#39;PENDING&#39;:
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  • spec.app.App
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    └── depends on: spec.err.Err
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  • spec.app.CmdLine
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    └── depends on: spec.app.App
-</span></code></pre></div>
-<hr />
-<h2 id="3-why-use-specification-dependencies">3. Why Use Specification Dependencies?</h2>
+<h2 id="the-9-step-developer-agent-loop">The 9-Step Developer Agent Loop</h2>
 <ol>
-<li><strong>Context-Aware Agent Prompts</strong>: When an LLM subagent retrieves a requirement to implement, the MCP server automatically fetches the docstrings of all dependent components (and their inherited mixins) so the agent has complete context.</li>
-<li><strong>Impact Analysis</strong>: Easily see which downstream features are affected when a core context (like error handling) is changed.</li>
-<li><strong>Execution Scheduling</strong>: Concurrency workers use the dependency graph to sort implementation tasks and run them in parallel without creating file conflicts.</li>
+<li><strong>Edit Spec</strong>: Decompose broad requirements into granular, single-responsibility specification classes in <code>spec/</code>.</li>
+<li><strong>Diff Spec (MANDATORY BEFORE CODING)</strong>: Run <code>uv run libspec diff</code> (or <code>mcp_libspec_diff</code>) to inspect specification drift and review mutations.</li>
+<li><strong>Sort Implementation Ordering</strong>: Inspect component dependencies via <code>uv run libspec dependencies</code> to sort components into topological order.</li>
+<li><strong>Test-Driven Development</strong>: Write unit tests for components in topological dependency order.</li>
+<li><strong>Implement</strong>: Implement code to satisfy the tests.</li>
+<li>Run tests: <code>make test</code></li>
+<li>Check formatting: <code>uv run ruff format --check</code></li>
+<li>Run linter: <code>uv run ruff check</code></li>
+<li><strong>Code Quality &amp; Verification</strong>: Run static analysis, type checking (<code>mypy</code>), and dead code detection (<code>vulture</code>).</li>
+<li><strong>Verify Specification Sync</strong>: Run <code>uv run libspec diff</code> to ensure live specs are synchronized with the final implementation.</li>
+<li><strong>Version Bump</strong>: Bump the project version in <code>pyproject.toml</code> according to Semantic Versioning (<code>MAJOR.MINOR.PATCH</code>) using helper target commands (<code>make bump-patch</code>, <code>make bump-minor</code>, or <code>make bump-major</code>).</li>
+<li><strong>Commit &amp; Present</strong>: Author a concise git commit message and present the changes.</li>
 </ol>
 
 

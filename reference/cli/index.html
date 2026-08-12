@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://drhodes.github.io/libspec/reference/cli/">
       
       
-        <link rel="prev" href="../../how-to/repl/">
+        <link rel="prev" href="../../how-to/extend-namespace/">
       
       
         <link rel="next" href="../mcp/">
@@ -271,7 +271,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../how-to/agents/" class="md-tabs__link">
+        <a href="../../how-to/install/" class="md-tabs__link">
           
   
   
@@ -313,7 +313,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../explanation/osm/" class="md-tabs__link">
+        <a href="../../explanation/generic-specs/" class="md-tabs__link">
           
   
   
@@ -543,6 +543,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../how-to/install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation & Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/agent-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Agent Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../how-to/agents/" class="md-nav__link">
         
   
@@ -635,6 +691,34 @@
     
   
     REPL Specification Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/extend-namespace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building a libspec.* Extension Library
   
 
     
@@ -1102,6 +1186,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../explanation/generic-specs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generic Specifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../explanation/osm/" class="md-nav__link">
         
   
@@ -1138,6 +1250,62 @@
     
   
     Store Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explanation/diataxis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diátaxis Framework Principles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explanation/namespace-extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The libspec.* Namespace Extension Model
   
 
     
@@ -1405,8 +1573,8 @@
 <p>Initializes a new <code>libspec</code> workspace context in the current working directory.
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>libspec<span class="w"> </span>init
 </span></code></pre></div>
-*   <strong>Creates</strong>: <code>spec/</code> blueprint folder, <code>.libspec/</code> metadata marker.
-*   <strong>Installs</strong>: Automated Git post-commit hooks for VCS snapshot linking.</p>
+*   <strong>Creates</strong>: <code>spec/</code> blueprint folder, <code>.libspec/</code> metadata marker, and <code>.agents/</code> workspace agent directory.
+*   <strong>Installs</strong>: Automated Git post-commit hooks and <code>.agents/skills/libspec/SKILL.md</code> default agent skill file.</p>
 <hr />
 <h3 id="diff"><code>diff</code></h3>
 <p>Diffs specification snapshots natively.
