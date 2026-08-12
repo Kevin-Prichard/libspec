@@ -675,7 +675,7 @@ wheels = [
 
 [[package]]
 name = "libspec"
-version = "10.5.3"
+version = "10.5.4"
 source = { editable = "." }
 dependencies = [
     { name = "aiofiles" },

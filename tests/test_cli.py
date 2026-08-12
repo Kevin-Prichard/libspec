@@ -31,6 +31,8 @@ def test_cli_init():
         assert os.path.exists("spec/main_spec.py")
         assert os.path.exists("spec/app.py")
         assert os.path.exists(".libspec")
+        assert os.path.isdir(".agents")
+        assert os.path.exists(".agents/skills/libspec/SKILL.md")
 
 
 def test_cli_init_completion_check():

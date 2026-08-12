@@ -6,7 +6,6 @@ from libspec.util import fqn
 
 
 class Feature(BaseSpec):
-
     """
     Feature Specification: {{feature_name}}
 

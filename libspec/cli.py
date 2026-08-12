@@ -103,6 +103,11 @@ def cmd_init(args):
     with open(os.path.join(libspec_dir, "workflow.yaml"), "w") as f:
         f.write(INIT_WORKFLOW_YAML)
 
+    # Configure workspace .agents skills directory
+    from libspec.agent_config import AgentsConfig
+
+    AgentsConfig(os.getcwd()).configure()
+
     print(f"Initialized empty spec directory in {spec_dir}")
 
     # Check if shell completion is configured in the user's home directory RC files.

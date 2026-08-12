@@ -130,6 +130,9 @@ class InitCommand(Feat):
     - spec/app.py (placeholder App and CmdLine classes)
     - spec/err.py (Err base class + Feat/Req convenience aliases)
 
+    It also initializes the .libspec/ project configuration directory and the
+    .agents/ workspace directory for agent workflow skills.
+
     The command exits with an error if a spec/ directory already exists,
     preventing accidental overwrite of an existing specification.
     """
@@ -141,6 +144,13 @@ class InitCompletionCheckReq(Req):
     (like `~/.bashrc`, `~/.zshrc`, or `~/.config/fish/config.fish`) to verify
     if the `libspec completion` autocomplete command is already configured.
     If not, it should print a helpful tip suggestion on how to enable completion.
+    """
+
+
+class InitAgentsDirReq(Req):
+    """
+    During `libspec init`, the tool must scaffold and configure the workspace `.agents/`
+    directory layout and install default agent skills (via `AgentsConfig.configure()`).
     """
 
 

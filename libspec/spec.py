@@ -899,9 +899,6 @@ def ctx_spec_classes_in_module(module):
     return classes
 
 
-
-
-
 # Instantiate all specification classes found in a module.
 def instantiate_module_specs(module):
     return [cls() for cls in ctx_spec_classes_in_module(module)]
