@@ -72,4 +72,5 @@ def get_agent_workflow(pfx: str = "libspec_") -> str:
 5. **Implement**: Implement the components to ensure the tests pass.{get_hook_lines("post-implement")}
 6. **Code Quality & Verification**: Run static analysis, linting, formatting, and dead code checks according to the project's guidelines.{get_hook_lines("pre-commit")}
 7. **Verify Specification Sync**: Run a spec diff using the `{pfx}diff` MCP tool or the `uv run libspec diff` command to ensure that the live specifications are fully synchronized with the final implementation and that all changes are accounted for.
-8. **Author a git message and present to user**"""
+8. **Version Bump**: Bump the project version in `pyproject.toml` according to Semantic Versioning (SemVer: `MAJOR.MINOR.PATCH`). Use helper commands (`make bump-patch`, `make bump-minor`, or `make bump-major`) as appropriate for the change.
+9. **Author a git message and present to user**"""

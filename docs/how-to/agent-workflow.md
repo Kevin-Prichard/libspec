@@ -20,7 +20,7 @@ uv run libspec agent-workflow --agent antigravity
 
 ---
 
-## The 8-Step Developer Agent Loop
+## The 9-Step Developer Agent Loop
 
 1. **Edit Spec**: Decompose broad requirements into granular, single-responsibility specification classes in `spec/`.
 2. **Diff Spec (MANDATORY BEFORE CODING)**: Run `uv run libspec diff` (or `mcp_libspec_diff`) to inspect specification drift and review mutations.
@@ -32,4 +32,5 @@ uv run libspec agent-workflow --agent antigravity
    - Run linter: `uv run ruff check`
 6. **Code Quality & Verification**: Run static analysis, type checking (`mypy`), and dead code detection (`vulture`).
 7. **Verify Specification Sync**: Run `uv run libspec diff` to ensure live specs are synchronized with the final implementation.
-8. **Commit & Present**: Author a concise git commit message and present the changes.
+8. **Version Bump**: Bump the project version in `pyproject.toml` according to Semantic Versioning (`MAJOR.MINOR.PATCH`) using helper target commands (`make bump-patch`, `make bump-minor`, or `make bump-major`).
+9. **Commit & Present**: Author a concise git commit message and present the changes.

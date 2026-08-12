@@ -258,3 +258,12 @@ class WorkflowComponentSortingReq(Req):
     and sort components into topological implementation order before starting test-driven
     development and coding.
     """
+
+
+class WorkflowSemverBumpReq(Req):
+    """
+    The recited `agent-workflow` checklist must include a version bump step instructing the
+    developer/agent to bump the project version in `pyproject.toml` according to Semantic
+    Versioning (SemVer: `MAJOR.MINOR.PATCH`) using helper tools (e.g., `make bump-patch`,
+    `make bump-minor`, `make bump-major`).
+    """

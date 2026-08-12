@@ -81,9 +81,9 @@ class InstallationGuideReq(Req):
 
 class AgentWorkflowGuideReq(Req):
     """
-    `docs/how-to/agent-workflow.md` must detail the 8-step developer agent loop:
+    `docs/how-to/agent-workflow.md` must detail the 9-step developer agent loop:
     - Documents `uv run libspec agent-workflow` execution across agent platforms.
-    - Outlines step-by-step guidelines from spec editing to spec diffing, TDD, implementation, and code quality verification.
+    - Outlines step-by-step guidelines from spec editing to spec diffing, TDD, implementation, code quality verification, SemVer version bumping, and commit presentation.
     """
 
 

@@ -86,3 +86,12 @@ def test_workflow_spec_sync_check():
     workflow_out = get_agent_workflow("libspec_")
     assert "Verify Specification Sync" in workflow_out
     assert "libspec_diff" in workflow_out
+
+
+def test_workflow_semver_bump():
+    from libspec.workflow import get_agent_workflow
+
+    workflow_out = get_agent_workflow("libspec_")
+    assert "Version Bump" in workflow_out
+    assert "pyproject.toml" in workflow_out
+    assert "Semantic Versioning" in workflow_out or "SemVer" in workflow_out
