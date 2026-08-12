@@ -4,10 +4,13 @@
 
 ---
 
-## Supported Agents for Auto-Configuration
+## Supported Agents & Workspace `.agents/` Layout
 
-`libspec` can automatically configure the following coding environments:
-*   `antigravity` (Antigravity IDE Agent)
+`libspec` recognizes the project root `.agents/` directory as the primary workspace customization root for AI agent skills.
+
+Supported target configurations:
+*   `agents` (Standard `.agents/` workspace layout — auto-configured on `libspec init`)
+*   `antigravity` (Google Antigravity IDE Agent)
 *   `gemini` (Gemini CLI)
 *   `claude` (Claude Desktop & Claude Code)
 *   `copilot` (GitHub Copilot)
@@ -18,30 +21,35 @@
 
 ## 1. Automated Configuration
 
-To configure your agent of choice, run the `agent-config` (or alias `mcp_agent`) command. Always prefix with `uv run` to ensure correct virtual environment context:
+When running `libspec init`, the `.agents/` workspace skills directory is created automatically.
+
+To configure or re-install skills for specific coding assistants, use `agent-config` (or alias `mcp_agent`):
 
 ```bash
-# List supported agents
+# List all supported agents
 uv run libspec agent-config --list
 
-# Configure a specific agent (e.g., Antigravity)
+# Scaffold/update .agents workspace skills
+uv run libspec agent-config agents
+
+# Configure specific agent integrations (e.g. Antigravity)
 uv run libspec agent-config antigravity
 ```
 
 This automated step:
 1.  Locates your local virtual environment's `uv` executable path.
-2.  Creates or updates the agent's MCP configuration directory (e.g., `.gemini/antigravity/mcp_config.json` for Antigravity, `.github/mcp.json` for Copilot, or `.claudesettings.json` for Claude).
-3.  Injects the `libspec mcp` tool command payload pointing to the current directory.
-4.  Installs a custom **SKILL.md** file containing prompt context guidelines to teach the LLM how and when to invoke `libspec` tools.
+2.  Creates the canonical target directory `.agents/skills/libspec/`.
+3.  Installs or updates **`SKILL.md`**, rendered via Jinja2 with atomicity and `SkillParser` validation.
+4.  Preserves backward compatibility for legacy `.agents/skills/libspec-agent-workflow/` paths.
 
 ---
 
-## 2. Skill Drift & Self-Healing
+## 2. Skill Drift, Auto-Healing & Customization
 
-LLM agent prompts require precise instruction schemas (skills). To prevent prompts from becoming outdated as the core library evolves:
-*   On every command invocation (e.g., `libspec diff`), `libspec` scans your workspace's active configurations.
-*   If it detects a missing or outdated `SKILL.md` (comparing the hash against package templates), it automatically **auto-heals** the file in place.
-*   This ensures the agent always receives the latest specification guidelines.
+LLM agent prompts require precise instruction schemas (skills). To prevent prompts from becoming outdated as `libspec` evolves:
+*   On startup and CLI invocations (e.g., `libspec diff`), `libspec` scans your workspace's `.agents/` configuration.
+*   If it detects a missing or modified `SKILL.md`, it automatically **auto-heals** the file in place by writing a process-isolated temporary file (`TEMP_<pid>_SKILL.md`), validating it, backing up the existing file to `SKILL.md.bak`, and atomically replacing it.
+*   **Customization Opt-Out**: If you customize your `.agents/skills/libspec/SKILL.md`, include the directive `# libspec: disable-auto-heal` in the header. `libspec` will detect the directive and preserve your manual edits without overwriting them.
 
 ---
 

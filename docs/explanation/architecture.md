@@ -49,3 +49,24 @@ graph TD
 1.  **Draft Pruning**: Any snapshot that is not linked to a Version Control (VCS) commit hash and is older than the current working set is squashed.
 2.  **Referential Integrity**: All active snapshots retain their component bindings.
 3.  **Physical Space Recovery**: The SQLite database runs a `VACUUM` call (or JSON Lines files are rewritten), shrinking the physical storage footprint.
+
+---
+
+## Workspace `.agents/` Architecture & Skill Lifecycle
+
+The `.agents/` directory located at the project root serves as the canonical workspace customization root for AI agent workflows and skills.
+
+```text
+.agents/
+└── skills/
+    └── libspec/             ← Canonical target directory
+        ├── SKILL.md         ← Validated agent workflow instructions
+        └── SKILL.md.bak     ← Backup created prior to atomic updates
+```
+
+### Skill Installation & Healing Mechanics:
+1. **Atomic File Installation**: Rendered skill content is initially written to a process-isolated temporary file (`TEMP_<pid>_SKILL.md`) to prevent file corruption during concurrent executions.
+2. **Skill Parser Validation**: The rendered markdown is validated via `SkillParser` to enforce valid YAML frontmatter (`name`, `description`) and non-empty content before deployment.
+3. **Backup & Atomic Rename**: If an existing `SKILL.md` is present, it is backed up to `SKILL.md.bak` before atomic replacement (`os.rename`).
+4. **Drift Detection & Auto-Healing**: On CLI or MCP startup, `libspec` compares installed `SKILL.md` content against rendered templates (ignoring line ending variations). If drift or corruption is detected, `libspec` auto-heals the skill unless `# libspec: disable-auto-heal` is present.
+

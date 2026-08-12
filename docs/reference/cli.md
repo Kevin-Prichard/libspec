@@ -11,8 +11,8 @@ Initializes a new `libspec` workspace context in the current working directory.
 ```bash
 uv run libspec init
 ```
-*   **Creates**: `spec/` blueprint folder, `.libspec/` metadata marker.
-*   **Installs**: Automated Git post-commit hooks for VCS snapshot linking.
+*   **Creates**: `spec/` blueprint folder, `.libspec/` metadata marker, and `.agents/` workspace agent directory.
+*   **Installs**: Automated Git post-commit hooks and `.agents/skills/libspec/SKILL.md` default agent skill file.
 
 ---
 
