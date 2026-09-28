@@ -313,7 +313,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../explanation/generic-specs/" class="md-tabs__link">
+        <a href="../../explanation/typed-prompts/" class="md-tabs__link">
           
   
   
@@ -647,10 +647,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-9-step-developer-agent-loop" class="md-nav__link">
+  <a href="#the-9-step-phase-typed-developer-agent-loop" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The 9-Step Developer Agent Loop
+        The 9-Step Phase-Typed Developer Agent Loop
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-workflow-hooks-libspecworkflowyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Customizing Workflow Hooks (.libspec/workflow.yaml)
       
     </span>
   </a>
@@ -949,6 +960,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/workflow-yaml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Configuration (workflow.yaml)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1007,6 +1046,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explanation/typed-prompts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phase-Typed Prompts & Paradigms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1193,10 +1260,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-9-step-developer-agent-loop" class="md-nav__link">
+  <a href="#the-9-step-phase-typed-developer-agent-loop" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The 9-Step Developer Agent Loop
+        The 9-Step Phase-Typed Developer Agent Loop
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-workflow-hooks-libspecworkflowyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Customizing Workflow Hooks (.libspec/workflow.yaml)
       
     </span>
   </a>
@@ -1234,21 +1312,56 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>libspec<span class="w"> </span>agent-workflow<span class="w"> </span>--agent<span class="w"> </span>antigravity
 </span></code></pre></div>
 <hr />
-<h2 id="the-9-step-developer-agent-loop">The 9-Step Developer Agent Loop</h2>
+<h2 id="the-9-step-phase-typed-developer-agent-loop">The 9-Step Phase-Typed Developer Agent Loop</h2>
+<pre class="mermaid"><code>flowchart TD
+    classDef decl fill:#e0e7ff,stroke:#4338ca,stroke-width:2px,color:#1e1b4b;
+    classDef imp fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#082f49;
+    classDef bridge fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f;
+    classDef done fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d;
+
+    P1["Phase 1: Edit Spec (DECLARATIVE)"]:::decl --&gt; P2["Phase 2: Diff Spec (DECLARATIVE to IMPERATIVE)"]:::bridge
+    P2 --&gt; P3["Phase 3: Sort Topo Ordering (IMPERATIVE)"]:::imp
+    P3 --&gt; P4["Phase 4: TDD Formulation (IMPERATIVE)"]:::imp
+    P4 --&gt; P5["Phase 5: Implementation (IMPERATIVE)"]:::imp
+    P5 --&gt; P6["Phase 6: Quality Verification (IMPERATIVE)"]:::imp
+    P6 --&gt; P7["Phase 7: Verify Spec Sync (DECLARATIVE)"]:::decl
+    P7 --&gt; P8["Phase 8: Version Bump (IMPERATIVE)"]:::imp
+    P8 --&gt; P9["Phase 9: Commit and Present (IMPERATIVE)"]:::done</code></pre>
 <ol>
-<li><strong>Edit Spec</strong>: Decompose broad requirements into granular, single-responsibility specification classes in <code>spec/</code>.</li>
-<li><strong>Diff Spec (MANDATORY BEFORE CODING)</strong>: Run <code>uv run libspec diff</code> (or <code>mcp_libspec_diff</code>) to inspect specification drift and review mutations.</li>
-<li><strong>Sort Implementation Ordering</strong>: Inspect component dependencies via <code>uv run libspec dependencies</code> to sort components into topological order.</li>
-<li><strong>Test-Driven Development</strong>: Write unit tests for components in topological dependency order.</li>
-<li><strong>Implement</strong>: Implement code to satisfy the tests.</li>
+<li>
+<p><strong>Phase 1: Edit Spec [DECLARATIVE]</strong>: Decompose broad requirements into granular, single-responsibility specification classes in <code>spec/</code>. Specs DECLARE the system architecture; do not put one-off imperative task steps here.</p>
+</li>
+<li>
+<p><strong>Phase 2: Diff Spec (MANDATORY BEFORE CODING) [DECLARATIVE -&gt; IMPERATIVE]</strong>: Run <code>uv run libspec diff</code> (or <code>mcp_libspec_diff</code>) to inspect specification drift and compile component deltas into structured imperative action prompts.</p>
+</li>
+<li><strong>Phase 3: Sort Implementation Ordering [IMPERATIVE]</strong>: Inspect component dependencies via <code>uv run libspec dependencies --topo</code> to sort components into topological order.</li>
+<li><strong>Phase 4: Test-Driven Development [IMPERATIVE - Contract Driven]</strong>: Write unit and integration tests for components in topological dependency order, formalizing declarative acceptance criteria.</li>
+<li><strong>Phase 5: Implement [IMPERATIVE - Goal Directed]</strong>: Implement code to satisfy the tests and meet declarative contracts.</li>
 <li>Run tests: <code>make test</code></li>
 <li>Check formatting: <code>uv run ruff format --check</code></li>
 <li>Run linter: <code>uv run ruff check</code></li>
-<li><strong>Code Quality &amp; Verification</strong>: Run static analysis, type checking (<code>mypy</code>), and dead code detection (<code>vulture</code>).</li>
-<li><strong>Verify Specification Sync</strong>: Run <code>uv run libspec diff</code> to ensure live specs are synchronized with the final implementation.</li>
-<li><strong>Version Bump</strong>: Bump the project version in <code>pyproject.toml</code> according to Semantic Versioning (<code>MAJOR.MINOR.PATCH</code>) using helper target commands (<code>make bump-patch</code>, <code>make bump-minor</code>, or <code>make bump-major</code>).</li>
-<li><strong>Commit &amp; Present</strong>: Author a concise git commit message and present the changes.</li>
+<li><strong>Phase 6: Code Quality &amp; Verification [IMPERATIVE]</strong>: Run static analysis, type checking (<code>mypy</code>), and dead code detection (<code>vulture</code>).</li>
+<li><strong>Phase 7: Verify Specification Sync [DECLARATIVE]</strong>: Run <code>uv run libspec diff</code> to ensure live specs are synchronized with the final implementation.</li>
+<li><strong>Phase 8: Version Bump [IMPERATIVE]</strong>: Bump the project version in <code>pyproject.toml</code> according to Semantic Versioning (<code>MAJOR.MINOR.PATCH</code>) using helper target commands (<code>make bump-patch</code>, <code>make bump-minor</code>, or <code>make bump-major</code>).</li>
+<li><strong>Phase 9: Commit &amp; Present [IMPERATIVE]</strong>: Author a concise git commit message linking spec references and diff footprints, then present the changes.</li>
 </ol>
+<hr />
+<h2 id="customizing-workflow-hooks-libspecworkflowyaml">Customizing Workflow Hooks (.libspec/workflow.yaml)</h2>
+<p>Every software project uses different test runners, linters, and build tools. You can customize the commands recited to AI coding agents across the 9 phases by editing <code>.libspec/workflow.yaml</code>:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">hooks</span><span class="p">:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">post-edit</span><span class="p">:</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Validate</span><span class="nv"> </span><span class="s">specification</span><span class="nv"> </span><span class="s">syntax:</span><span class="nv"> </span><span class="s">`uv</span><span class="nv"> </span><span class="s">run</span><span class="nv"> </span><span class="s">libspec</span><span class="nv"> </span><span class="s">diff`&quot;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">pre-test</span><span class="p">:</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Ensure</span><span class="nv"> </span><span class="s">dependencies</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">synced:</span><span class="nv"> </span><span class="s">`uv</span><span class="nv"> </span><span class="s">sync`&quot;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="nt">post-implement</span><span class="p">:</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Run</span><span class="nv"> </span><span class="s">tests:</span><span class="nv"> </span><span class="s">`make</span><span class="nv"> </span><span class="s">test`&quot;</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="nt">pre-commit</span><span class="p">:</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Check</span><span class="nv"> </span><span class="s">formatting:</span><span class="nv"> </span><span class="s">`uv</span><span class="nv"> </span><span class="s">run</span><span class="nv"> </span><span class="s">ruff</span><span class="nv"> </span><span class="s">format</span><span class="nv"> </span><span class="s">--check`&quot;</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Run</span><span class="nv"> </span><span class="s">linter:</span><span class="nv"> </span><span class="s">`uv</span><span class="nv"> </span><span class="s">run</span><span class="nv"> </span><span class="s">ruff</span><span class="nv"> </span><span class="s">check`&quot;</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;Run</span><span class="nv"> </span><span class="s">typechecker:</span><span class="nv"> </span><span class="s">`uv</span><span class="nv"> </span><span class="s">run</span><span class="nv"> </span><span class="s">mypy</span><span class="nv"> </span><span class="s">-p</span><span class="nv"> </span><span class="s">libspec`&quot;</span>
+</span></code></pre></div>
+<p>When an agent requests the workflow via <code>uv run libspec agent-workflow</code> or the <code>agent_workflow</code> MCP tool, <code>libspec</code> automatically injects these concrete project commands into the checklist bullets for each phase.</p>
+<p>See the <a href="../../reference/workflow-yaml/">Workflow Configuration Reference</a> for the complete list of hook anchors and schema options.</p>
 
 
 
